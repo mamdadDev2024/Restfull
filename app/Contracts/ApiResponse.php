@@ -8,12 +8,7 @@ class ApiResponse
     private $message;
     private $code;
     private $data;
-    private $appends;
-
-    public function __construct()
-    {
-
-    }  
+    private $appends; 
 
     public function Message(string $message): ApiResponse
     {
@@ -25,12 +20,13 @@ class ApiResponse
         $this->code = $status;
         return $this;
     }
-    public function Data(mixed $data): void
+    public function Data(mixed $data): ApiResponse
     {
         $this->data = $data;
+        return $this;
     }
 
-    public function appends(mixed $appends): ApiResponse
+    public function appends(array $appends): ApiResponse
     {
         $this->appends = $appends;
         return $this;
@@ -44,7 +40,8 @@ class ApiResponse
             $this->response['code'] = 200;
         if (!is_null($this->data))
             $this->response['data'] = $this->data;
-        $this->response = $this->response + $this->appends;
+        if (!is_null($this->appends))
+            $this->response = $this->response + $this->appends;
 
         return response()->json($this->response , $this->code);
     }

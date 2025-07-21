@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\ApiRequest;
+use App\Contracts\ApiFormRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class LogoutRequest extends FormRequest
+class LogoutRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

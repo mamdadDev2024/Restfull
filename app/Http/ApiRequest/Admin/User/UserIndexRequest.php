@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\ApiRequest;
+namespace App\Http\ApiRequest\Admin\User;
+
 use App\Contracts\ApiFormRequest;
 
-class LoginRequest extends ApiFormRequest
+class UserIndexRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return !auth()->check();
+        return true;
     }
 
     /**
@@ -21,8 +22,7 @@ class LoginRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users',
-            'password' => 'required|min:6|string'
+            //
         ];
     }
 }
