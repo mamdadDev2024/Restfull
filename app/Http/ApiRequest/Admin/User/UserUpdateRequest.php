@@ -3,6 +3,7 @@
 namespace App\Http\ApiRequest\Admin\User;
 
 use App\Contracts\ApiFormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserUpdateRequest extends ApiFormRequest
 {
@@ -22,7 +23,9 @@ class UserUpdateRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_name' => 'required|string|unique:users,'.Auth::id(),
+            'email' => 'required|email|unique:users,'.Auth::id(),
+            'password' => 'required|string|min:6'
         ];
     }
 }

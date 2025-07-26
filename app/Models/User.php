@@ -50,4 +50,22 @@ class User extends Authenticatable
     public function articles(){
         return $this->hasMany(Article::class);
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole(string $role)
+    {
+        return $this->roles->contains($role);
+    }
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 }

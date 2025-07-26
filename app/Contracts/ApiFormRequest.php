@@ -10,7 +10,10 @@ class ApiFormRequest extends FormRequest
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(response()->json(["errors"=> $validator->errors()] , 422));
     }
-    // public function failedAuthorize(Validator $validator){
-        
-    // }
+
+    public function unauthenticated(){
+        throw new HttpResponseException(
+            response()->json(["errors"=> ["Unauthenticated."]] , 422)
+        );
+    }
 }

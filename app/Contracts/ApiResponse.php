@@ -6,7 +6,7 @@ class ApiResponse
 {
     private $response;
     private $message;
-    private $code;
+    private $code = 200;
     private $data;
     private $appends; 
 

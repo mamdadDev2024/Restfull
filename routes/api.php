@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')->get('/current-user', function (Request $reque
 Route::post('login', LoginController::class)->name('login');
 Route::post('register', RegisterController::class)->name('register');
 
-Route::middleware('auth:sanctum')->prefix('admin')->as('admin.')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('admin')->as('admin.')->group(function () {
     Route::apiResources([
         'user' => UserController::class,
         'article' => ArticleController::class,

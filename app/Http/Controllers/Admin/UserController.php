@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\ApiResponseFacade;
+use App\Http\ApiRequest\Admin\User\UserDeleteRequest;
 use App\Http\ApiRequest\Admin\User\UserStoreRequest;
 use App\Http\ApiRequest\Admin\User\UserUpdateRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserDetailCollection;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -18,9 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return ApiResponseFacade::Data(User::all()->toResourceCollection())
-            ->Code(200)
-            ->response();
+        return $this->service->index();
     }
 
     /**
@@ -28,15 +27,7 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        $user = $this->service->create($request->validated());
-        $token = $user->createToken('api token');
-        return ApiResponseFacade::Message('User Creation Sucessfuly')
-            ->Code(201)
-            ->Data($user)
-            ->appends([
-                'token' => $token->plainTextToken
-            ])
-            ->response();
+        return $this->service->create($request->validated());
     }
 
     /**
@@ -44,7 +35,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return ApiResponseFacade::Data($user->toResource())->Code(200)->response();
+        return $this->service->show($user);
     }
 
     /**
@@ -52,14 +43,15 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        return $this->service->update($user , $request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(UserDeleteRequest $request , User $user)
     {
-        //
+        $request->validated();
+        return $this->service->delete($user);
     }
 }

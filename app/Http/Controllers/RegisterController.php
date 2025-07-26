@@ -10,11 +10,10 @@ class RegisterController extends Controller
 {
     public function __construct(private UserService $service){}
     public function __invoke(RegisterRequest $request){
-        $user = $this->service->create($request->validated());
-        $token = $user->createToken('api token');
+        $user = $this->service->create($request->validated())->data;
         return ApiResponseFacade::Message('User Created!')
             ->Code(201)
-            ->Data($token->plainTextToken)
+            ->Data($user->createToken('api token')->plainTextToken)
             ->response();
     }
 }

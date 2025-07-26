@@ -3,6 +3,7 @@
 namespace App\Http\ApiRequest\Admin\User;
 
 use App\Contracts\ApiFormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UserDeleteRequest extends ApiFormRequest
 {
