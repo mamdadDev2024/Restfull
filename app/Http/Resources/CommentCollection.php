@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CommentDetailCollection extends ResourceCollection
+class CommentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

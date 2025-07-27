@@ -18,7 +18,7 @@ class BaseService{
             DB::rollBack();
             !is_null($reject) && $reject();
             app()[ExceptionHandler::class]->report($th);
-            return ApiResponseFacade::Message($th->getMessage())->response();
+            return ApiResponseFacade::Message($th->getMessage())->Code(500)->response();
         }
         return ApiResponseFacade::Message('Opration Processed')->Data($result)->response();
     }
